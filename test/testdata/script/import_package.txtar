@@ -1,0 +1,27 @@
+# Import into an existing bb.cue with a package clause should work.
+exec bbcue import extra.yaml
+stderr 'imported extra.yaml'
+cmp bb.cue expected_bb.cue
+
+-- bb.cue --
+package bb
+
+bbcue: "config.json": {
+	content: {
+		key: "value"
+	}
+}
+
+-- extra.yaml --
+name: test
+
+-- expected_bb.cue --
+package bb
+
+bbcue: "config.json": {
+	content: {
+		key: "value"
+	}
+}
+
+bbcue: "extra.yaml": content: name: "test"

@@ -1,0 +1,9 @@
+# bbcue rejects invalid format values via the implicit schema.
+! exec bbcue
+stderr 'bbcue'
+
+-- bb.cue --
+bbcue: "config.json": {
+	format: "xml"
+	content: { something: true }
+}

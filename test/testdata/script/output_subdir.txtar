@@ -1,0 +1,14 @@
+exec bbcue
+cmp sub/dir/config.json expected_config.json
+
+-- bb.cue --
+bbcue: "sub/dir/config.json": {
+	content: {
+		nested: true
+	}
+}
+
+-- expected_config.json --
+{
+  "nested": true
+}

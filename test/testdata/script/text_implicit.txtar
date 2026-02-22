@@ -1,0 +1,10 @@
+exec bbcue
+cmp notes.txt expected_notes.txt
+
+-- bb.cue --
+bbcue: "notes.txt": {
+	content: "Just some notes."
+}
+
+-- expected_notes.txt --
+Just some notes.

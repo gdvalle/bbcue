@@ -1,0 +1,19 @@
+# tool/file.MkdirAll: creates nested directories.
+
+exec bbcue
+exists a/b/c/
+
+-- bb.cue --
+import "tool/file"
+
+mkdirAll: file.MkdirAll & {
+	path: "a/b/c"
+}
+
+bbcue: {
+	_after: mkdirAll
+
+	"result.json": {
+		content: done: true
+	}
+}

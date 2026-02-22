@@ -1,0 +1,10 @@
+# Import a .yml file into bb.cue (alternate extension).
+exec bbcue import data.yml
+stderr 'imported data.yml'
+cmp bb.cue expected_bb.cue
+
+-- data.yml --
+name: test
+
+-- expected_bb.cue --
+bbcue: "data.yml": content: name: "test"

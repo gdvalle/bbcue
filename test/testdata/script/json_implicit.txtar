@@ -1,0 +1,14 @@
+exec bbcue
+cmp config.json expected_config.json
+
+-- bb.cue --
+bbcue: "config.json": {
+	content: {
+		inferred: true
+	}
+}
+
+-- expected_config.json --
+{
+  "inferred": true
+}

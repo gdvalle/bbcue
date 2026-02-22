@@ -1,0 +1,17 @@
+exec bbcue
+cmp config.json expected_config.json
+
+-- bb.cue --
+bbcue: "config.json": {
+	format: "json"
+	content: {
+		enable_thing: true
+		some_value:   "hello"
+	}
+}
+
+-- expected_config.json --
+{
+  "enable_thing": true,
+  "some_value": "hello"
+}

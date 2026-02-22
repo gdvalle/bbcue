@@ -1,0 +1,34 @@
+# tool/http.Do: POST request with request body, verifies echoed response.
+
+exec bbcue
+cmp result.json expected_result.json
+
+-- bb.cue --
+import (
+	"tool/http"
+	"tool/os"
+)
+
+env: os.Getenv & {
+	BBCUE_HTTP_URL: string
+}
+
+echo: http.Post & {
+	url: env.BBCUE_HTTP_URL + "/echo"
+	request: {
+		body: "ping"
+		header: "Content-Type": ["text/plain"]
+	}
+	response: body: string
+}
+
+bbcue: "result.json": {
+	content: {
+		echoed: echo.response.body
+	}
+}
+
+-- expected_result.json --
+{
+  "echoed": "ping"
+}

@@ -1,0 +1,216 @@
+<!-- Code examples are extracted from txtar integration tests. -->
+<!-- To regenerate: go run ./internal/genreadme -->
+
+# bbcue
+
+**bbcue** turns [CUE](https://cuelang.org) into a low-boilerplate config file generator. Drop a `bb.cue` file in any directory, run `bbcue`, and get JSON, YAML, TOML, or plain text files, with full access to CUE's type system, imports, and a subset of tool tasks.
+
+This is an experiment to make CUE more approachable and ergonomic for me.
+
+## Install
+
+Download a prebuilt binary from the [Releases page](https://github.com/gdvalle/bbcue/releases).
+
+Or install with Go:
+
+```sh
+go install github.com/gdvalle/bbcue/cmd/bbcue@latest
+```
+
+## Quick start
+
+Create a `bb.cue` file:
+
+```cue
+{{file "yaml_explicit" "bb.cue"}}
+```
+
+Run `bbcue`:
+
+```sh
+$ bbcue
+. -> config.json
+wrote 1 file(s) from 1 source(s) in 1ms
+
+```
+
+This writes `config.yaml`:
+
+```yaml
+{{file "yaml_explicit" "expected_config.yaml"}}
+```
+
+## How it works
+
+bbcue recursively finds `bb.cue` files starting from the current directory. Each file defines a `bbcue` struct whose keys are output filenames and whose values describe the content to write.
+
+The output format is inferred from the file extension (`.json`, `.yaml`/`.yml`, `.toml`, `.txt`) or set explicitly with a `format` field.
+
+
+### Multiple outputs
+
+A single `bb.cue` can produce multiple files:
+
+```cue
+{{file "multiple_outputs" "bb.cue"}}
+```
+
+## Tool tasks
+
+bbcue reimplements a subset of [CUE tool imports](https://pkg.go.dev/cuelang.org/go/pkg/tool). See [API docs](https://pkg.go.dev/cuelang.org/go/pkg/tool).
+(We reimplement because these are not public APIs).
+* `exec.Run`
+* `file.*`
+* `http.Do`
+* `os.Environ`
+* `os.Getenv`
+
+Note these are powerful tools that break the hermetic seal around CUE evaluation and are typically isolated to CUE `_tool`-suffixed files.
+
+For the tools that interact with the filesystem, they execute relative to the directory containing the `bb.cue` file, regardless of where `bbcue` was invoked.
+
+### Reading files with `tool/file`
+
+Read a file's contents and embed it in the output:
+
+```cue
+{{file "tool_file_read" "bb.cue"}}
+```
+
+### Running commands with `tool/exec`
+
+Capture command output:
+
+```cue
+{{file "tool_exec_run" "bb.cue"}}
+```
+
+Handle commands that might fail with `mustSucceed: false`:
+
+```cue
+{{file "tool_exec_run_failure" "bb.cue"}}
+```
+
+### Reading environment variables with `tool/os`
+
+Read specific variables with `os.Getenv`:
+
+```cue
+{{file "tool_os_getenv" "bb.cue"}}
+```
+
+Or read from the full environment with `os.Environ`:
+
+```cue
+{{file "tool_os_environ" "bb.cue"}}
+```
+
+## CUE packages and schemas
+
+All `.cue` files in a directory are loaded together, so you can split schemas and values across files using CUE packages.
+
+bbcue strictly scopes evaluation to the directory containing the `bb.cue` file (it does not automatically unify with parent directories). However, it does walk parent directories to discover `cue.mod` roots for import resolution.
+
+```cue
+// schema.cue
+{{file "unify_bb_cue" "schema.cue"}}
+```
+
+```cue
+// bb.cue
+{{file "unify_bb_cue" "bb.cue"}}
+```
+
+## Importing data files
+
+The `import` subcommand converts existing JSON, YAML, and TOML files into `bb.cue` entries:
+
+```sh
+bbcue import config.json settings.yaml
+```
+
+This appends entries to (or creates) `bb.cue` in the current directory. Each file becomes a field under the `bbcue` struct, keyed by filename and wrapped in a `content` field:
+
+```cue
+bbcue: "config.json": content: {
+	host: "localhost"
+	port: 5432
+}
+bbcue: "settings.yaml": content: {
+	key: "value"
+}
+```
+
+If `bb.cue` already contains an entry for a filename, that file is skipped with a warning. Multi-document YAML files are not supported.
+
+## CLI usage
+
+bbcue uses subcommands. When invoked without a subcommand, `gen` is the default.
+
+```
+bbcue <command> [flags] [args...]
+```
+
+| Flag | Description |
+|------|-------------|
+| `--version`, `-v` | Print version and build information |
+| `--help`, `-h` | Show usage |
+
+### `gen` (default)
+
+Discover `bb.cue` files and write configured outputs.
+
+```
+bbcue [gen] [flags] [paths...]
+```
+
+With no arguments, bbcue checks the current directory for a `bb.cue` file.
+
+| Flag | Description |
+|------|-------------|
+| `--recurse`, `-r` | Recurse into subdirectories |
+| `--no-recurse`, `-R` | Do not recurse (default; overrides `-r` if both given) |
+| `--version`, `-v` | Print version and build information |
+
+When paths are specified:
+- **Directories** are used as roots (checked directly by default, or recursed with `-r`)
+- **Files** use their parent directory as the root
+
+### `import`
+
+Import data files (JSON, YAML, TOML) as CUE values into `bb.cue`.
+
+```
+bbcue import <files...>
+```
+
+### Examples
+
+```sh
+# Generate from current directory
+bbcue
+
+# Recursively generate from current directory
+bbcue -r
+
+# Recursively generate from specific directories
+bbcue gen -r ./services ./infra
+
+# Import data files
+bbcue import config.json settings.yaml
+
+# Print version
+bbcue --version
+```
+
+## Directory skipping
+
+When recursing, bbcue automatically skips:
+
+- Directories starting with `.`
+- `node_modules`
+- `cue.mod`
+
+## Path safety
+
+Output paths are validated to stay within the `bb.cue` file's directory. Absolute paths and `../` traversal are rejected.

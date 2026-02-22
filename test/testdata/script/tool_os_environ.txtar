@@ -1,0 +1,21 @@
+# tool/os.Environ: reads all environment variables.
+
+env BBCUE_ENV_TEST=world
+exec bbcue
+cmp result.json expected_result.json
+
+-- bb.cue --
+import "tool/os"
+
+environ: os.Environ
+
+bbcue: "result.json": {
+	content: {
+		val: environ.BBCUE_ENV_TEST
+	}
+}
+
+-- expected_result.json --
+{
+  "val": "world"
+}

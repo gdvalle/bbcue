@@ -1,0 +1,4 @@
+# Import with no arguments should show usage and error.
+! exec bbcue import
+stderr 'no files specified'
+

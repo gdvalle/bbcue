@@ -1,0 +1,6 @@
+# Unsupported file extensions should be rejected.
+! exec bbcue import data.txt
+stderr 'unsupported file extension'
+
+-- data.txt --
+some text

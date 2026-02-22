@@ -1,0 +1,12 @@
+! exec bbcue -r
+stderr 'escapes'
+
+-- dir1/bb.cue --
+bbcue: "shared/output.json": {
+	content: { from: "dir1" }
+}
+
+-- dir2/bb.cue --
+bbcue: "../dir1/shared/output.json": {
+	content: { from: "dir2" }
+}

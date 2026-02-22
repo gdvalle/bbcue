@@ -1,0 +1,30 @@
+# tool/http.Do: GET request fetches JSON and uses response body as content.
+
+exec bbcue
+cmp result.json expected_result.json
+
+-- bb.cue --
+import (
+	"tool/http"
+	"tool/os"
+)
+
+env: os.Getenv & {
+	BBCUE_HTTP_URL: string
+}
+
+fetch: http.Get & {
+	url: env.BBCUE_HTTP_URL + "/data.json"
+	response: body: string
+}
+
+bbcue: "result.json": {
+	content: {
+		data: fetch.response.body
+	}
+}
+
+-- expected_result.json --
+{
+  "data": "{\"greeting\":\"hello\"}\n"
+}

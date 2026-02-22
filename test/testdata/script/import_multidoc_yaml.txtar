@@ -1,0 +1,8 @@
+# Multi-document YAML files should be rejected.
+! exec bbcue import multi.yaml
+stderr 'multi-document YAML is not supported'
+
+-- multi.yaml --
+name: first
+---
+name: second

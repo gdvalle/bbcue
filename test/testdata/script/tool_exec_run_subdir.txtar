@@ -1,0 +1,32 @@
+# Test that exec.Run executes in the bb.cue directory by default.
+# We verify this by listing a file that exists only in the subdir.
+
+# Run bbcue on subdir.
+exec bbcue subdir/
+
+# Check output in subdir/result.json.
+# It should contain "bb.cue" if `ls bb.cue` succeeded in the subdir.
+# logic: if we were in root, `ls bb.cue` would fail (exit 2) or list nothing if we ignore error.
+# But exec.Run fails on error by default.
+
+cmp subdir/result.json expected_ls.json
+
+-- subdir/bb.cue --
+import "tool/exec"
+import "strings"
+
+list: exec.Run & {
+	cmd: "ls bb.cue"
+	stdout: string
+}
+
+bbcue: "result.json": {
+	content: {
+		data: strings.TrimSpace(list.stdout)
+	}
+}
+
+-- expected_ls.json --
+{
+  "data": "bb.cue"
+}

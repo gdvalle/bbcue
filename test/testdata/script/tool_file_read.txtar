@@ -1,0 +1,25 @@
+# bb.cue with file.Read: reads input.txt and embeds contents in output JSON.
+
+exec bbcue
+cmp result.json expected_result.json
+
+-- input.txt --
+hello from file
+-- bb.cue --
+import "tool/file"
+
+readMe: file.Read & {
+	filename: "input.txt"
+	contents: string
+}
+
+bbcue: "result.json": {
+	content: {
+		data: readMe.contents
+	}
+}
+
+-- expected_result.json --
+{
+  "data": "hello from file\n"
+}

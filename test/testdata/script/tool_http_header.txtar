@@ -1,0 +1,33 @@
+# tool/http.Do: verifies request headers are sent and response headers accessible.
+
+exec bbcue
+cmp result.json expected_result.json
+
+-- bb.cue --
+import (
+	"tool/http"
+	"tool/os"
+)
+
+env: os.Getenv & {
+	BBCUE_HTTP_URL: string
+}
+
+fetch: http.Get & {
+	url: env.BBCUE_HTTP_URL + "/headers"
+	request: {
+		header: "X-Custom-Request": ["test-value"]
+	}
+	response: body: string
+}
+
+bbcue: "result.json": {
+	content: {
+		body: fetch.response.body
+	}
+}
+
+-- expected_result.json --
+{
+  "body": "{\"received\":\"test-value\"}\n"
+}

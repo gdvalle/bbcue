@@ -1,0 +1,20 @@
+# Importing a file that already exists in bb.cue should skip it with a warning,
+# but continue importing other files.
+! exec bbcue import existing.json new.json
+stderr 'skipping existing.json.*already exists'
+stderr 'imported new.json'
+cmp bb.cue expected_bb.cue
+
+-- bb.cue --
+bbcue: "existing.json": content: foo: "bar"
+
+-- existing.json --
+{"should": "not be imported"}
+
+-- new.json --
+{"added": true}
+
+-- expected_bb.cue --
+bbcue: "existing.json": content: foo: "bar"
+
+bbcue: "new.json": content: added: true

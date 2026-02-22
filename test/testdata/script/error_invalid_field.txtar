@@ -1,0 +1,8 @@
+# bbcue rejects unknown fields in the output entry via the implicit schema.
+! exec bbcue
+stderr 'field not allowed'
+
+-- bb.cue --
+bbcue: "config.json": {
+	contnet: { something: true }
+}

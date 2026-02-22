@@ -1,0 +1,23 @@
+# tool/exec.Run: executes a command and captures stdout.
+
+exec bbcue
+cmp result.json expected_result.json
+
+-- bb.cue --
+import "tool/exec"
+
+run: exec.Run & {
+	cmd: ["echo", "hello world"]
+	stdout: string
+}
+
+bbcue: "result.json": {
+	content: {
+		message: run.stdout
+	}
+}
+
+-- expected_result.json --
+{
+  "message": "hello world\n"
+}

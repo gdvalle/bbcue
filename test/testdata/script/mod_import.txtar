@@ -1,0 +1,21 @@
+# Test that bbcue can resolve imports from cue.mod even when not unifying parent dirs.
+
+exec bbcue
+cmp out.json expected.json
+
+-- cue.mod/module.cue --
+module: "test.mod"
+language: version: "v0.9.0"
+
+-- cue.mod/pkg/example.com/foo/foo.cue --
+package foo
+
+Val: 42
+
+-- bb.cue --
+import "example.com/foo"
+
+bbcue: "out.json": content: foo.Val
+
+-- expected.json --
+42

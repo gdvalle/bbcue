@@ -1,0 +1,32 @@
+# tool/http.Do: followRedirects: false returns the 302 instead of following.
+
+exec bbcue
+cmp result.json expected_result.json
+
+-- bb.cue --
+import (
+	"tool/http"
+	"tool/os"
+)
+
+env: os.Getenv & {
+	BBCUE_HTTP_URL: string
+}
+
+fetch: http.Do & {
+	method: "GET"
+	url:    env.BBCUE_HTTP_URL + "/redirect"
+	followRedirects: false
+	response: body: string
+}
+
+bbcue: "result.json": {
+	content: {
+		status: fetch.response.statusCode
+	}
+}
+
+-- expected_result.json --
+{
+  "status": 302
+}

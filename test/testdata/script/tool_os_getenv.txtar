@@ -1,0 +1,23 @@
+# tool/os.Getenv: reads specific environment variables.
+
+env BBCUE_TEST_VAR=hello_from_env
+exec bbcue
+cmp result.json expected_result.json
+
+-- bb.cue --
+import "tool/os"
+
+getenv: os.Getenv & {
+	BBCUE_TEST_VAR: string
+}
+
+bbcue: "result.json": {
+	content: {
+		val: getenv.BBCUE_TEST_VAR
+	}
+}
+
+-- expected_result.json --
+{
+  "val": "hello_from_env"
+}

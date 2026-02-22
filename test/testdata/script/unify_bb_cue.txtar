@@ -1,0 +1,29 @@
+# bb.cue unifies with a sibling schema.cue file via package-mode loading.
+# The schema defines #Config which bb.cue references in its bbcue output.
+
+exec bbcue
+cmp config.json expected_config.json
+
+-- schema.cue --
+package bb
+
+#Config: {
+	host: string
+	port: int
+}
+
+-- bb.cue --
+package bb
+
+bbcue: "config.json": {
+	content: #Config & {
+		host: "localhost"
+		port: 5432
+	}
+}
+
+-- expected_config.json --
+{
+  "host": "localhost",
+  "port": 5432
+}

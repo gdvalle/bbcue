@@ -1,0 +1,10 @@
+# Filenames with special characters should be properly quoted in CUE labels.
+exec bbcue import my.config.json
+stderr 'imported my.config.json'
+cmp bb.cue expected_bb.cue
+
+-- my.config.json --
+{"value": true}
+
+-- expected_bb.cue --
+bbcue: "my.config.json": content: value: true

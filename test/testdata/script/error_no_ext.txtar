@@ -1,0 +1,7 @@
+! exec bbcue
+stderr 'cannot infer format'
+
+-- bb.cue --
+bbcue: "Makefile": {
+	content: "all: build"
+}

@@ -1,0 +1,32 @@
+# Tasks not referenced by bbcue should not be executed.
+# readUnused refers to a file that does not exist, but since bbcue
+# does not reference readUnused, the flow should not attempt to run it.
+
+exec bbcue
+cmp result.json expected_result.json
+
+-- input.txt --
+hello
+-- bb.cue --
+import "tool/file"
+
+readUsed: file.Read & {
+	filename: "input.txt"
+	contents: string
+}
+
+readUnused: file.Read & {
+	filename: "does_not_exist.txt"
+	contents: string
+}
+
+bbcue: "result.json": {
+	content: {
+		data: readUsed.contents
+	}
+}
+
+-- expected_result.json --
+{
+  "data": "hello\n"
+}

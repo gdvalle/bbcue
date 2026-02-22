@@ -1,0 +1,31 @@
+# Test that file.RemoveAll resolves relative paths from the bb.cue directory.
+
+exec bbcue subdir/
+
+cmp subdir/result.json expected_result.json
+
+# The target inside subdir should be removed.
+! exists subdir/to_remove/
+
+# The target in root with the same name should still exist.
+exists root_to_remove/
+
+-- subdir/to_remove/a.txt --
+-- root_to_remove/a.txt --
+-- subdir/bb.cue --
+import "tool/file"
+
+remove: file.RemoveAll & {
+	path: "to_remove"
+}
+
+bbcue: "result.json": {
+	content: {
+		success: remove.success
+	}
+}
+
+-- expected_result.json --
+{
+  "success": true
+}

@@ -1,0 +1,20 @@
+# Import a YAML file into bb.cue.
+exec bbcue import settings.yaml
+stderr 'imported settings.yaml'
+cmp bb.cue expected_bb.cue
+
+-- settings.yaml --
+key: value
+nested:
+  items:
+    - one
+    - two
+
+-- expected_bb.cue --
+bbcue: "settings.yaml": content: {
+	key: "value"
+	nested: items: [
+		"one",
+		"two",
+	]
+}

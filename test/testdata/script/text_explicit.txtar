@@ -1,0 +1,11 @@
+exec bbcue
+cmp readme.txt expected_readme.txt
+
+-- bb.cue --
+bbcue: "readme.txt": {
+	format: "text"
+	content: "Hello, world!"
+}
+
+-- expected_readme.txt --
+Hello, world!

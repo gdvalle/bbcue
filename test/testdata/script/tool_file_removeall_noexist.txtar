@@ -1,0 +1,22 @@
+# tool/file.RemoveAll: removing a non-existent path returns success=false.
+
+exec bbcue
+cmp result.json expected_result.json
+
+-- bb.cue --
+import "tool/file"
+
+remove: file.RemoveAll & {
+	path: "does_not_exist"
+}
+
+bbcue: "result.json": {
+	content: {
+		success: remove.success
+	}
+}
+
+-- expected_result.json --
+{
+  "success": false
+}

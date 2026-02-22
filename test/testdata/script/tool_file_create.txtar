@@ -1,0 +1,23 @@
+# tool/file.Create: creates/overwrites a file with contents.
+
+exec bbcue
+cmp output.txt expected_output.txt
+
+-- bb.cue --
+import "tool/file"
+
+create: file.Create & {
+	filename: "output.txt"
+	contents: "hello world\n"
+}
+
+bbcue: {
+	_after: create
+
+	"result.json": {
+		content: done: true
+	}
+}
+
+-- expected_output.txt --
+hello world

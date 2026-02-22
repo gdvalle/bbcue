@@ -1,0 +1,19 @@
+# tool/file.Mkdir: creates a directory.
+
+exec bbcue
+exists newdir/
+
+-- bb.cue --
+import "tool/file"
+
+mkdir: file.Mkdir & {
+	path: "newdir"
+}
+
+bbcue: {
+	_after: mkdir
+
+	"result.json": {
+		content: done: true
+	}
+}

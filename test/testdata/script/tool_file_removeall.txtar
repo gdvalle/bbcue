@@ -1,0 +1,27 @@
+# tool/file.RemoveAll: removes a path and reports success.
+
+exec bbcue
+cmp result.json expected_result.json
+
+# Verify the target was actually removed.
+! exists to_remove/
+
+-- to_remove/a.txt --
+-- to_remove/b.txt --
+-- bb.cue --
+import "tool/file"
+
+remove: file.RemoveAll & {
+	path: "to_remove"
+}
+
+bbcue: "result.json": {
+	content: {
+		success: remove.success
+	}
+}
+
+-- expected_result.json --
+{
+  "success": true
+}

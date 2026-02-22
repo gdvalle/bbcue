@@ -1,0 +1,23 @@
+# tool/file.Append: creates a new file if it does not exist.
+
+exec bbcue
+cmp newfile.txt expected_newfile.txt
+
+-- bb.cue --
+import "tool/file"
+
+append: file.Append & {
+	filename: "newfile.txt"
+	contents: "created\n"
+}
+
+bbcue: {
+	_after: append
+
+	"result.json": {
+		content: done: true
+	}
+}
+
+-- expected_newfile.txt --
+created

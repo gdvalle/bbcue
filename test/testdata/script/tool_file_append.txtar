@@ -1,0 +1,26 @@
+# tool/file.Append: appends contents to a file.
+
+exec bbcue
+cmp existing.txt expected_existing.txt
+
+-- existing.txt --
+line one
+-- bb.cue --
+import "tool/file"
+
+append: file.Append & {
+	filename: "existing.txt"
+	contents: "line two\n"
+}
+
+bbcue: {
+	_after: append
+
+	"result.json": {
+		content: done: true
+	}
+}
+
+-- expected_existing.txt --
+line one
+line two

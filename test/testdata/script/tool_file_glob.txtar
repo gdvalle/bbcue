@@ -1,0 +1,28 @@
+# tool/file.Glob: returns files matching a pattern.
+
+exec bbcue
+cmp result.json expected_result.json
+
+-- data/a.txt --
+-- data/b.txt --
+-- data/c.json --
+-- bb.cue --
+import "tool/file"
+
+glob: file.Glob & {
+	glob: "data/*.txt"
+}
+
+bbcue: "result.json": {
+	content: {
+		files: glob.files
+	}
+}
+
+-- expected_result.json --
+{
+  "files": [
+    "data/a.txt",
+    "data/b.txt"
+  ]
+}

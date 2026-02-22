@@ -1,0 +1,15 @@
+exec bbcue
+cmp config.conf expected_config.conf
+
+-- bb.cue --
+bbcue: "config.conf": {
+	format: "json"
+	content: {
+		works: true
+	}
+}
+
+-- expected_config.conf --
+{
+  "works": true
+}

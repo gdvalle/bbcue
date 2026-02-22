@@ -1,0 +1,16 @@
+# The gen subcommand should work explicitly and bbcue without subcommand
+# should default to gen behavior.
+exec bbcue gen
+cmp config.json expected_config.json
+
+-- bb.cue --
+bbcue: "config.json": {
+	content: {
+		key: "value"
+	}
+}
+
+-- expected_config.json --
+{
+  "key": "value"
+}

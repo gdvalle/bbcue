@@ -1,0 +1,32 @@
+# Test that file.Read reads from the bb.cue directory, not the execution root.
+
+# Run bbcue on subdir.
+exec bbcue subdir/
+
+# Check output in subdir/result.json.
+# It should match expected_is_subdir.json (reading local input.txt).
+
+cmp subdir/result.json expected_is_subdir.json
+
+-- subdir/bb.cue --
+import "tool/file"
+
+readMe: file.Read & {
+	filename: "input.txt"
+	contents: string
+}
+
+bbcue: "result.json": {
+	content: {
+		data: readMe.contents
+	}
+}
+
+-- subdir/input.txt --
+hello from subdir
+-- input.txt --
+hello from root
+-- expected_is_subdir.json --
+{
+  "data": "hello from subdir\n"
+}

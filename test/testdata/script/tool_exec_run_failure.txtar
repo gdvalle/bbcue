@@ -1,0 +1,24 @@
+# tool/exec.Run: a failing command with mustSucceed: false captures the error.
+
+exec bbcue
+cmp result.json expected_result.json
+
+-- bb.cue --
+import "tool/exec"
+
+run: exec.Run & {
+	cmd: ["false"]
+	mustSucceed: false
+	stdout: string
+}
+
+bbcue: "result.json": {
+	content: {
+		ok: run.success
+	}
+}
+
+-- expected_result.json --
+{
+  "ok": false
+}

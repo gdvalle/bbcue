@@ -1,0 +1,20 @@
+# Importing multiple files at once should create entries for all of them.
+exec bbcue import a.json b.yaml c.toml
+stderr 'imported a.json'
+stderr 'imported b.yaml'
+stderr 'imported c.toml'
+cmp bb.cue expected_bb.cue
+
+-- a.json --
+{"x": 1}
+
+-- b.yaml --
+"y": 2
+
+-- c.toml --
+z = 3
+
+-- expected_bb.cue --
+bbcue: "a.json": content: x: 1
+bbcue: "b.yaml": content: y: 2
+bbcue: "c.toml": content: z: 3

@@ -1,0 +1,9 @@
+! exec bbcue
+stderr 'escapes'
+
+-- bb.cue --
+bbcue: "sub/../../escape.json": {
+	content: {
+		bad: true
+	}
+}

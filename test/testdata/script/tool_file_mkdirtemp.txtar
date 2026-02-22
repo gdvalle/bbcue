@@ -1,0 +1,22 @@
+# tool/file.MkdirTemp: creates a temporary directory and returns its path.
+
+exec bbcue
+cmp result.json expected_result.json
+
+-- bb.cue --
+import "tool/file"
+
+tmp: file.MkdirTemp & {
+	pattern: "bbcue-test-*"
+}
+
+bbcue: "result.json": {
+	content: {
+		hasPath: tmp.path != ""
+	}
+}
+
+-- expected_result.json --
+{
+  "hasPath": true
+}
