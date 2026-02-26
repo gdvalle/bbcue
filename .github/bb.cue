@@ -80,6 +80,13 @@ _updateCue: githubactions.#Workflow & {
 						"""##
 				},
 				{
+					name: "Run tests"
+					if:   "steps.update.outputs.changed == 'true'"
+					run: ##"""
+						just test
+						"""##
+				},
+				{
 					name: "Commit and push to main"
 					if:   "steps.update.outputs.changed == 'true'"
 					run: ##"""

@@ -38,6 +38,9 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
             echo "cue_sha=${cue_sha}" >> "$GITHUB_OUTPUT"
           fi
+      - name: Run tests
+        if: steps.update.outputs.changed == 'true'
+        run: just test
       - name: Commit and push to main
         if: steps.update.outputs.changed == 'true'
         run: |-
