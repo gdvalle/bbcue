@@ -55,19 +55,7 @@ _updateCue: githubactions.#Workflow & {
 					run: ##"""
 						set -euo pipefail
 
-						max_tries=5
-						for i in $(seq 1 $max_tries); do
-						  if go get cuelang.org/go@master; then
-						    break
-						  fi
-						  if [ $i -eq $max_tries ]; then
-						    echo "go get failed after $max_tries attempts"
-						    exit 1
-						  fi
-						  echo "go get failed, retrying in 10s..."
-						  sleep 10
-						done
-
+						./scripts/retry_with_sleep.sh 5 10 go get cuelang.org/go@master
 						go mod tidy
 
 						if git diff --quiet go.mod go.sum; then
@@ -77,6 +65,13 @@ _updateCue: githubactions.#Workflow & {
 						  echo "changed=true" >> "$GITHUB_OUTPUT"
 						  echo "cue_sha=${cue_sha}" >> "$GITHUB_OUTPUT"
 						fi
+						"""##
+				},
+				{
+					name: "Download dependencies"
+					if:   "steps.update.outputs.changed == 'true'"
+					run:  ##"""
+						./scripts/retry_with_sleep.sh 5 10 go mod download
 						"""##
 				},
 				{

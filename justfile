@@ -17,14 +17,14 @@ build:
 
 # Run all tests.
 test:
-    go test ./test/
+    go test ./...
 
 fmt:
     go fmt ./...
 
 # Run all tests verbosely.
 test-v:
-    go test -v -count=1 ./test/
+    go test -v -count=1 ./...
 
 # Regenerate README.md from the template and txtar test fixtures.
 readme:
