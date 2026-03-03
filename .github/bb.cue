@@ -53,7 +53,7 @@ _updateCue: githubactions.#Workflow & {
 					name: "Update CUE dependency"
 					id:   "update"
 					run: ##"""
-						set -euo pipefail
+						set -euxo pipefail
 
 						./scripts/retry_with_sleep.sh 5 10 go get cuelang.org/go@master
 						go mod tidy
@@ -61,17 +61,10 @@ _updateCue: githubactions.#Workflow & {
 						if git diff --quiet go.mod go.sum; then
 						  echo "changed=false" >> "$GITHUB_OUTPUT"
 						else
-						  cue_sha=$(grep 'cuelang.org/go' go.mod | grep -oP '[0-9a-f]{12}$')
+						  cue_sha=$(go list -m -f '{{.Version}}' cuelang.org/go | grep -oP '[0-9a-f]{12}$')
 						  echo "changed=true" >> "$GITHUB_OUTPUT"
 						  echo "cue_sha=${cue_sha}" >> "$GITHUB_OUTPUT"
 						fi
-						"""##
-				},
-				{
-					name: "Download dependencies"
-					if:   "steps.update.outputs.changed == 'true'"
-					run:  ##"""
-						./scripts/retry_with_sleep.sh 5 10 go mod download
 						"""##
 				},
 				{
