@@ -5,7 +5,7 @@
 
 **bbcue** turns [CUE](https://cuelang.org) into a low-boilerplate config file generator. Drop a `bb.cue` file in any directory, run `bbcue`, and get JSON, YAML, TOML, or plain text files, with full access to CUE's type system, imports, and a subset of tool tasks.
 
-This is an experiment to make CUE more approachable and ergonomic for me.
+It's basically an opinionated wrapper with a predefined `cue cmd` task to write config out by convention, without having to recall the `cue export` and `cue import` syntax.
 
 ## Install
 
