@@ -1,0 +1,9 @@
+-- testdata/script/cmd_cue.txtar --
+exec bbcue cue version
+stdout 'CUE language version'
+
+exec bbcue cue eval data.cue
+stdout 'a: 1'
+
+-- data.cue --
+a: 1

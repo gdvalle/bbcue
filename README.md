@@ -240,6 +240,14 @@ bbcue <command> [flags] [args...]
 | `--version`, `-v` | Print version and build information |
 | `--help`, `-h` | Show usage |
 
+### `cue` (passthrough)
+
+Run the embedded CUE interpreter. All arguments, flags, and environment variables are passed directly to the standard CUE CLI.
+
+```sh
+bbcue cue version
+```
+
 ### `gen` (default)
 
 Discover `bb.cue` files and write configured outputs.
@@ -266,6 +274,36 @@ Import data files (JSON, YAML, TOML) as CUE values into `bb.cue`.
 
 ```
 bbcue import <files...>
+```
+
+### `fmt`
+
+Format CUE files. 
+
+```
+bbcue fmt [flags] [files...]
+```
+
+With no arguments, bbcue discovers and formats all `.cue` files in the current directory (and subdirectories if recurse is enabled). Files are always simplified.
+
+| Flag | Description |
+|------|-------------|
+| `--recurse`, `-r` | Recurse into subdirectories |
+| `--no-recurse`, `-R` | Do not recurse (default; overrides `-r` if both given) |
+
+Example:
+
+```cue
+// Before
+package   example
+bbcue:  "output.txt": { content: "hello" }
+```
+
+```cue
+// After
+package example
+
+bbcue: "output.txt": content: "hello"
 ```
 
 ### Examples

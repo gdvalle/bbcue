@@ -1,0 +1,20 @@
+exec bbcue fmt bb.cue
+cmp bb.cue expected_bb.cue
+
+exec bbcue fmt -r
+cmp another/bb.cue another/expected_bb.cue
+
+-- bb.cue --
+package   example
+bbcue:  "output.txt": { content: "hello" }
+-- expected_bb.cue --
+package example
+
+bbcue: "output.txt": content: "hello"
+-- another/bb.cue --
+package   example
+bbcue: "output2.txt": { content:   "world" }
+-- another/expected_bb.cue --
+package example
+
+bbcue: "output2.txt": content: "world"

@@ -13,6 +13,7 @@ import (
 	"cuelang.org/go/cue"
 	"cuelang.org/go/cue/cuecontext"
 	"cuelang.org/go/cue/load"
+	"github.com/gdvalle/bbcue/internal/discovery"
 
 	"github.com/gdvalle/bbcue/internal/generate/flow"
 )
@@ -185,11 +186,6 @@ func writeEntry(entry outputEntry) error {
 	return nil
 }
 
-// skipDir reports whether a directory should be skipped during bb.cue discovery.
-func skipDir(name string) bool {
-	return strings.HasPrefix(name, ".") || name == "node_modules" || name == "cue.mod"
-}
-
 // findBBDirs walks the directory tree from root and returns all directories
 // containing a bb.cue file.
 func findBBDirs(root string) ([]bbDir, error) {
@@ -201,7 +197,7 @@ func findBBDirs(root string) ([]bbDir, error) {
 		if !d.IsDir() {
 			return nil
 		}
-		if d.Name() != filepath.Base(root) && skipDir(d.Name()) {
+		if d.Name() != filepath.Base(root) && discovery.SkipDir(d.Name()) {
 			return filepath.SkipDir
 		}
 		if _, err := os.Stat(filepath.Join(path, "bb.cue")); err == nil {
