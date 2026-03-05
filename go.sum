@@ -1,7 +1,7 @@
 cuelabs.dev/go/oci/ociregistry v0.0.0-20251212221603-3adeb8663819 h1:Zh+Ur3OsoWpvALHPLT45nOekHkgOt+IOfutBbPqM17I=
 cuelabs.dev/go/oci/ociregistry v0.0.0-20251212221603-3adeb8663819/go.mod h1:WjmQxb+W6nVNCgj8nXrF24lIz95AHwnSl36tpjDZSU8=
-cuelang.org/go v0.16.0-rc.1.0.20260303225502-310f61c32cf1 h1:qNzkhOQtnDMyW+Z8ph83CA3zV9iZoKfETrcNjGr59Dw=
-cuelang.org/go v0.16.0-rc.1.0.20260303225502-310f61c32cf1/go.mod h1:x2v9ht7UJXDB6vL0Vof0V+13o1CcYjNpHmo6Q7rZghI=
+cuelang.org/go v0.16.0-rc.1.0.20260304093622-c19c1c46e67e h1:8DMIp2gs2Og6f9hWBPkhvsjkonWMeVg7Hjp2Yf64Kao=
+cuelang.org/go v0.16.0-rc.1.0.20260304093622-c19c1c46e67e/go.mod h1:x2v9ht7UJXDB6vL0Vof0V+13o1CcYjNpHmo6Q7rZghI=
 github.com/cockroachdb/apd/v3 v3.2.1 h1:U+8j7t0axsIgvQUqthuNm82HIrYXodOV2iWLWtEaIwg=
 github.com/cockroachdb/apd/v3 v3.2.1/go.mod h1:klXJcjp+FffLTHlhIG69tezTDvdP065naDsHzKhYSqc=
 github.com/cpuguy83/go-md2man/v2 v2.0.6/go.mod h1:oOW0eioCTA6cOiMLiUPZOpcVxMig6NIQQ7OS05n1F4g=
