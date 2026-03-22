@@ -38,5 +38,46 @@ jobs:
           git add go.mod go.sum
           git commit -m 'chore(deps): bump cuelang.org/go to ${{ steps.update.outputs.cue_sha }}'
           git push
+      - name: Trigger release workflow (repository_dispatch)
+        if: steps.update.outputs.changed == 'true'
+        env:
+          REPO: ${{ github.repository }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |-
+          set -euxo pipefail
+
+          RETRIES=5
+          SLEEP=5
+
+          for i in $(seq 1 $RETRIES); do
+          	rc=0
+          	http_code=$(curl -sS -o /dev/null -w "%{http_code}" -X POST "https://api.github.com/repos/${REPO}/dispatches" \
+          		-H "Accept: application/vnd.github+json" \
+          		-H "Authorization: token ${TOKEN}" \
+          		-d '{"event_type":"cue-updated"}' ) || rc=$?
+
+          	rc=${rc:-0}
+
+          	if [ "$rc" -ne 0 ]; then
+          		echo "curl failed with exit code $rc"
+          	elif [ "$http_code" -ge 200 ] && [ "$http_code" -lt 300 ]; then
+          		echo "repository_dispatch sent (HTTP $http_code)"
+          		break
+          	elif [ "$http_code" -ge 500 ]; then
+          		echo "server error (HTTP $http_code), will retry"
+          	else
+          		echo "unexpected response (HTTP $http_code), not retrying"
+          		exit 1
+          	fi
+
+          	if [ "$i" -lt "$RETRIES" ]; then
+          		sleep $((SLEEP * i))
+          		echo "retrying (attempt $((i+1))/$RETRIES)"
+          		continue
+          	else
+          		echo "all retries failed"
+          		exit 1
+          	fi
+          done
 permissions:
   contents: write

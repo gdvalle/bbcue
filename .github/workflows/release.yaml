@@ -5,6 +5,9 @@ name: Release
   push:
     branches:
       - main
+  repository_dispatch:
+    types:
+      - cue-updated
 jobs:
   build:
     runs-on: ubuntu-latest
