@@ -25,8 +25,8 @@ jobs:
           - goos: linux
             goarch: riscv64
     steps:
-      - uses: actions/checkout@v4
-      - uses: jdx/mise-action@v3
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+      - uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151
       - name: Build
         run: go build -ldflags='-s -w' -o bbcue-${{ matrix.goos }}-${{ matrix.goarch }} ./cmd/bbcue
         env:
@@ -34,7 +34,7 @@ jobs:
           GOOS: ${{ matrix.goos }}
           GOARCH: ${{ matrix.goarch }}
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: bbcue-${{ matrix.goos }}-${{ matrix.goarch }}
           path: bbcue-${{ matrix.goos }}-${{ matrix.goarch }}
@@ -42,7 +42,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
       - name: Generate tag
         id: tag
         run: |-
@@ -50,13 +50,13 @@ jobs:
           ts=$(git show -s --format=%cd --date=format:'%Y%m%d%H%M%S' HEAD)
           echo "tag=v0.0.0-${ts}-${sha}" >> "$GITHUB_OUTPUT"
       - name: Download artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
         with:
           path: dist
           pattern: bbcue-*
           merge-multiple: "true"
       - name: Create release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda
         with:
           tag_name: ${{ steps.tag.outputs.tag }}
           name: bbcue ${{ steps.tag.outputs.tag }}

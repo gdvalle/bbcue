@@ -7,8 +7,8 @@ import (
 )
 
 _mainBranch: "main"
-_checkoutStep: {uses: "actions/checkout@v4"}
-_miseStep: {uses: "jdx/mise-action@v3"}
+_checkoutStep: {uses: "actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd"} // v6
+_miseStep: {uses: "jdx/mise-action@1648a7812b9aeae629881980618f079932869151"}          // v4
 _runner:  "ubuntu-latest"
 _version: "0.0.0"
 
@@ -176,7 +176,7 @@ _release: githubactions.#Workflow & {
 				},
 				{
 					name: "Upload artifact"
-					uses: "actions/upload-artifact@v4"
+					uses: "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a" // v7
 					with: {
 						name: "bbcue-${{ matrix.goos }}-${{ matrix.goarch }}"
 						path: "bbcue-${{ matrix.goos }}-${{ matrix.goarch }}"
@@ -200,7 +200,7 @@ _release: githubactions.#Workflow & {
 				},
 				{
 					name: "Download artifacts"
-					uses: "actions/download-artifact@v4"
+					uses: "actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c" // v8
 					with: {
 						path:             "dist"
 						pattern:          "bbcue-*"
@@ -209,7 +209,7 @@ _release: githubactions.#Workflow & {
 				},
 				{
 					name: "Create release"
-					uses: "softprops/action-gh-release@v2"
+					uses: "softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda" // v3
 					with: {
 						tag_name:               "${{ steps.tag.outputs.tag }}"
 						name:                   "bbcue ${{ steps.tag.outputs.tag }}"
