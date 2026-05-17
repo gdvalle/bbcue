@@ -1,0 +1,21 @@
+# tool/file.Mkdir: fails on nested paths without createParents.
+# This proves Mkdir is not the same as MkdirAll — the difference is purely
+# from CUE unification: MkdirAll = Mkdir & {createParents: true}.
+
+! exec bbcue
+stderr 'no such file'
+
+-- bb.cue --
+import "tool/file"
+
+mkdir: file.Mkdir & {
+	path: "a/b/c"
+}
+
+bbcue: {
+	_after: mkdir
+
+	"result.json": {
+		content: done: true
+	}
+}

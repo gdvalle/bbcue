@@ -71,10 +71,10 @@ func lookupTask(v cue.Value, dir string) (flow.Runner, error) {
 			return runFileGlob(t, dir)
 		}), nil
 	case "tool/file.Mkdir":
-		return flow.RunnerFunc(func(t *flow.Task) error {
-			return runFileMkdir(t, dir)
-		}), nil
-	case "tool/file.MkdirAll":
+		// CUE's MkdirAll = Mkdir & {createParents: true} resolves to $id
+		// "tool/file.Mkdir" via CUE unification before we see it, so a
+		// separate MkdirAll case is not needed — createParents is baked
+		// into the unified value.
 		return flow.RunnerFunc(func(t *flow.Task) error {
 			return runFileMkdir(t, dir)
 		}), nil
