@@ -7,6 +7,7 @@ import (
 	"github.com/gdvalle/bbcue/internal/fmtcmd"
 	"github.com/gdvalle/bbcue/internal/gencmd"
 	"github.com/gdvalle/bbcue/internal/importcmd"
+	"github.com/gdvalle/bbcue/internal/selfupdate"
 	"github.com/gdvalle/bbcue/internal/version"
 
 	cuecmd "cuelang.org/go/cmd/cue/cmd"
@@ -15,10 +16,11 @@ import (
 const usage = `Usage: bbcue <command> [flags] [args...]
 
 Commands:
-  gen       Discover bb.cue files and write configured outputs (default)
-  import    Import data files into bb.cue
-  fmt       Format CUE files
-  cue       Run the embedded CUE CLI
+  gen         Discover bb.cue files and write configured outputs (default)
+  import      Import data files into bb.cue
+  fmt         Format CUE files
+  self-update Update bbcue to a GitHub release
+  cue         Run the embedded CUE CLI
 
 Global flags:
   --version, -v    Print version and build information
@@ -61,6 +63,18 @@ func main() {
 		err = importcmd.Run(args[1:])
 	case "fmt":
 		err = fmtcmd.Run(args[1:])
+	case "self-update":
+		exitCode, err := selfupdate.Run(args[1:])
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			if exitCode == 0 {
+				exitCode = 1
+			}
+		}
+		if exitCode != 0 {
+			os.Exit(exitCode)
+		}
+		return
 	case "cue":
 		// Modify os.Args so that cmd.Main() sees the correct arguments.
 		// It expects os.Args[1:] to be the arguments to the cue CLI.
