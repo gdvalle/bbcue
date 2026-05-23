@@ -33,11 +33,15 @@ jobs:
           CGO_ENABLED: "0"
           GOOS: ${{ matrix.goos }}
           GOARCH: ${{ matrix.goarch }}
+      - name: Checksum
+        run: sha256sum bbcue-${{ matrix.goos }}-${{ matrix.goarch }} > bbcue-${{ matrix.goos }}-${{ matrix.goarch }}.sha256
       - name: Upload artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: bbcue-${{ matrix.goos }}-${{ matrix.goarch }}
-          path: bbcue-${{ matrix.goos }}-${{ matrix.goarch }}
+          path: |-
+            bbcue-${{ matrix.goos }}-${{ matrix.goarch }}
+            bbcue-${{ matrix.goos }}-${{ matrix.goarch }}.sha256
   release:
     needs: build
     runs-on: ubuntu-latest

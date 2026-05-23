@@ -175,11 +175,18 @@ _release: githubactions.#Workflow & {
 					}
 				},
 				{
+					name: "Checksum"
+					run:  "sha256sum bbcue-${{ matrix.goos }}-${{ matrix.goarch }} > bbcue-${{ matrix.goos }}-${{ matrix.goarch }}.sha256"
+				},
+				{
 					name: "Upload artifact"
 					uses: "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a" // v7
 					with: {
 						name: "bbcue-${{ matrix.goos }}-${{ matrix.goarch }}"
-						path: "bbcue-${{ matrix.goos }}-${{ matrix.goarch }}"
+						path: """
+							bbcue-${{ matrix.goos }}-${{ matrix.goarch }}
+							bbcue-${{ matrix.goos }}-${{ matrix.goarch }}.sha256
+							"""
 					}
 				},
 			]
