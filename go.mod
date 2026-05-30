@@ -3,14 +3,14 @@ module github.com/gdvalle/bbcue
 go 1.26.0
 
 require (
-	cuelang.org/go v0.17.0-alpha.1.0.20260528183409-489f4a906f84
+	cuelang.org/go v0.17.0-alpha.1.0.20260529161117-c37cf244b7ef
 	github.com/rogpeppe/go-internal v1.15.0
 	github.com/spf13/pflag v1.0.10
 	golang.org/x/tools v0.45.0
 )
 
 require (
-	cuelabs.dev/go/oci/ociregistry v0.0.0-20251212221603-3adeb8663819 // indirect
+	cuelabs.dev/go/oci/ociregistry v0.0.0-20260528172951-57ddb82adb90 // indirect
 	github.com/cockroachdb/apd/v3 v3.2.3 // indirect
 	github.com/coder/websocket v1.8.14 // indirect
 	github.com/emicklei/proto v1.14.3 // indirect
