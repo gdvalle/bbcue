@@ -15,6 +15,6 @@ bbcue: "config.toml": content: {
 	title: "Example"
 	database: {
 		server: "192.168.1.1"
-		ports: [8001, 8001, 8002]
+		ports:  [8001, 8001, 8002]
 	}
 }
