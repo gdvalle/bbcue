@@ -3,7 +3,7 @@ module github.com/gdvalle/bbcue
 go 1.26.0
 
 require (
-	cuelang.org/go v0.18.0-alpha.1.0.20260903175936-eb886ed07a08
+	cuelang.org/go v0.18.0-alpha.1.0.20260909084032-3d1cf46d6466
 	github.com/rogpeppe/go-internal v1.16.0
 	github.com/spf13/pflag v1.0.10
 	golang.org/x/tools v0.49.0
