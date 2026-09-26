@@ -61,9 +61,18 @@ _updateCue: githubactions.#Workflow & {
 						if git diff --quiet go.mod go.sum; then
 						  echo "changed=false" >> "$GITHUB_OUTPUT"
 						else
-						  cue_sha=$(go list -m -f '{{.Version}}' cuelang.org/go | grep -oP '[0-9a-f]{12}$')
+						  # @master resolves to a tagged release (e.g. v0.18.0-alpha.2) when
+						  # master's tip carries a tag, and to a pseudo-version ending in the
+						  # 12-character commit prefix otherwise. Prefer the commit prefix and
+						  # fall back to the tag, so that a tag can never fail this step.
+						  version=$(go list -m -f '{{.Version}}' cuelang.org/go)
+						  if [[ $version =~ ([0-9a-f]{12})$ ]]; then
+						    cue_ref=${BASH_REMATCH[1]}
+						  else
+						    cue_ref=$version
+						  fi
 						  echo "changed=true" >> "$GITHUB_OUTPUT"
-						  echo "cue_sha=${cue_sha}" >> "$GITHUB_OUTPUT"
+						  echo "cue_ref=${cue_ref}" >> "$GITHUB_OUTPUT"
 						fi
 						"""##
 				},
@@ -82,7 +91,7 @@ _updateCue: githubactions.#Workflow & {
 						# 41898282 is the GitHub user ID of the github-actions[bot] account
 						git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 						git add go.mod go.sum
-						git commit -m 'chore(deps): bump cuelang.org/go to ${{ steps.update.outputs.cue_sha }}'
+						git commit -m 'chore(deps): bump cuelang.org/go to ${{ steps.update.outputs.cue_ref }}'
 						git push
 						"""##
 				},
