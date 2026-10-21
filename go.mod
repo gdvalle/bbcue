@@ -3,10 +3,10 @@ module github.com/gdvalle/bbcue
 go 1.26.0
 
 require (
-	cuelang.org/go v0.18.0-rc.1.0.20261018170955-a42bb0ac4ef4
+	cuelang.org/go v0.18.0-rc.1.0.20261020162417-3aa23cc4e45c
 	github.com/rogpeppe/go-internal v1.16.1-0.20261002162744-ce71b23481ca
-	github.com/spf13/pflag v1.0.10
-	golang.org/x/tools v0.52.0
+	github.com/spf13/pflag v1.0.11-0.20261019083819-70f284b93daa
+	golang.org/x/tools v0.52.1-0.20261019204153-5fe18dca7371
 )
 
 require (
@@ -18,7 +18,7 @@ require (
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
-	github.com/opencontainers/go-digest v1.0.1-0.20260914153615-3650f26df2a1 // indirect
+	github.com/opencontainers/go-digest v1.0.1-0.20261015205711-63db54280247 // indirect
 	github.com/opencontainers/image-spec v1.1.1 // indirect
 	github.com/pelletier/go-toml/v2 v2.4.3 // indirect
 	github.com/protocolbuffers/txtpbfmt v0.0.0-20261013103202-7c8a61a7a736 // indirect
