@@ -3,7 +3,7 @@ module github.com/gdvalle/bbcue
 go 1.26.0
 
 require (
-	cuelang.org/go v0.18.0-rc.1.0.20261021155208-fa8b4012d432
+	cuelang.org/go v0.18.0-rc.1.0.20261022184122-b68cd71635c1
 	github.com/rogpeppe/go-internal v1.16.1-0.20261002162744-ce71b23481ca
 	github.com/spf13/pflag v1.0.11-0.20261019083819-70f284b93daa
 	golang.org/x/tools v0.52.1-0.20261019204153-5fe18dca7371
@@ -11,7 +11,7 @@ require (
 
 require (
 	cuelabs.dev/go/oci/ociregistry v0.0.0-20261008151123-94f4aa6e0087 // indirect
-	github.com/cockroachdb/apd/v3 v3.2.4-0.20261020175533-d451b150d46f // indirect
+	github.com/cockroachdb/apd/v3 v3.2.4-0.20261021202135-0e59bffd422b // indirect
 	github.com/coder/websocket v1.8.15 // indirect
 	github.com/emicklei/proto v1.14.3 // indirect
 	github.com/goccy/go-yaml v1.19.2 // indirect
