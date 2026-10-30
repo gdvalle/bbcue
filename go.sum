@@ -1,7 +1,7 @@
 cuelabs.dev/go/oci/ociregistry v0.0.0-20261008151123-94f4aa6e0087 h1:Fp7iln2dYtbMfMjsewSI4jASaoRnVriKR5mUC4zvBAI=
 cuelabs.dev/go/oci/ociregistry v0.0.0-20261008151123-94f4aa6e0087/go.mod h1:ETJsQ880PrjcDPD/fN5ovoVEMYd6IzcWAuAESTZXLnU=
-cuelang.org/go v0.18.0-rc.2.0.20261028161523-c4a272fd2c0d h1:pQGgKW9c1K5KrCcFIZkyL9vrt3zqCAmZdsktB5LT5fk=
-cuelang.org/go v0.18.0-rc.2.0.20261028161523-c4a272fd2c0d/go.mod h1:ov7nqnMkYDcTseMo7v4XcP5WSgbw2tJqsv90nNRql74=
+cuelang.org/go v0.18.0-rc.2.0.20261029233522-ada72c4c2840 h1:AmxxbpbSBvQfS4HGdDfJbze16pTY/5ZwLV6fHWrlxlk=
+cuelang.org/go v0.18.0-rc.2.0.20261029233522-ada72c4c2840/go.mod h1:nrEi1xgOxmA7fGtY0JG6lQMFbbVmloxktpqh5Q7dOSw=
 github.com/cockroachdb/apd/v3 v3.2.4-0.20261021202135-0e59bffd422b h1:JARHULmDxNYrsVVStGqB1P2nUtL76sYPDF0CHdX5FDg=
 github.com/cockroachdb/apd/v3 v3.2.4-0.20261021202135-0e59bffd422b/go.mod h1:klXJcjp+FffLTHlhIG69tezTDvdP065naDsHzKhYSqc=
 github.com/coder/websocket v1.8.15 h1:6B2JPeOGlpff2Uz6vOEH1Vzpi0iUz20A+lPVhPHtNUA=
@@ -13,8 +13,8 @@ github.com/go-quicktest/qt v1.102.0 h1:HSQxCeh5YZH3EL3W39ixjtyaEhcWSXQHtHnMBzSs4
 github.com/go-quicktest/qt v1.102.0/go.mod h1:p4lGIVX+8Wa6ZPNDvqcxq36XpUDLh42FLetFU7odllI=
 github.com/goccy/go-yaml v1.19.3-0.20260407131736-edee2f91616c h1:fcmjo7ROtW1Oio6t5PwTaAuCg8zDO4havJoZD81GnFE=
 github.com/goccy/go-yaml v1.19.3-0.20260407131736-edee2f91616c/go.mod h1:XBurs7gK8ATbW4ZPGKgcbrY1Br56PdM69F7LkFRi1kA=
-github.com/google/go-cmp v0.7.0 h1:wk8382ETsv4JYUZwIsn6YpYiWiBsYLSJiTsyBybVuN8=
-github.com/google/go-cmp v0.7.0/go.mod h1:pXiqmnSA92OHEEa9HXL2W4E7lf9JzCmGVUdgjX3N/iU=
+github.com/google/go-cmp v0.7.1-0.20261029010250-cb6e62ef52b3 h1:b8BmdFlJdkBkH5HKG3m9sZRLW3CelnC19bIBPw63yJE=
+github.com/google/go-cmp v0.7.1-0.20261029010250-cb6e62ef52b3/go.mod h1:clbmL2GfVfcoXit5woVHfwPARdim2aNGjNAEpf3jvD4=
 github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
 github.com/google/uuid v1.6.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
 github.com/inconshreveable/mousetrap v1.1.0 h1:wN+x4NVGpMsO7ErUn/mUI3vEoE6Jt13X2s0bqwp9tc8=
