@@ -1,7 +1,7 @@
 cuelabs.dev/go/oci/ociregistry v0.0.0-20261026160121-545c0455168d h1:VQJY+iqMtWilYwcSgEPqBrwqtb01z3n+w7ALc/xmQvk=
 cuelabs.dev/go/oci/ociregistry v0.0.0-20261026160121-545c0455168d/go.mod h1:ETJsQ880PrjcDPD/fN5ovoVEMYd6IzcWAuAESTZXLnU=
-cuelang.org/go v0.19.0-0.dev.0.20261111142542-2ba2d87a899b h1:WgyEBlXn82YNPDtJTq6l09ZH2hyP32iVpWDwCS26cD8=
-cuelang.org/go v0.19.0-0.dev.0.20261111142542-2ba2d87a899b/go.mod h1:gN+9/PmTX3NxfOKX9EJFA23oAqXu+b8xh50wCEedhFI=
+cuelang.org/go v0.19.0-0.dev.0.20261112175743-e1a8dc4e8f9c h1:Qg9qRk7UNlYsh1fSXawPHfSwqHm0B1RhzheLOI6scRM=
+cuelang.org/go v0.19.0-0.dev.0.20261112175743-e1a8dc4e8f9c/go.mod h1:gN+9/PmTX3NxfOKX9EJFA23oAqXu+b8xh50wCEedhFI=
 github.com/cockroachdb/apd/v3 v3.2.4-0.20261022180432-e9c7a71a8579 h1:MfyLhikFSi3TUFRRO4PL6It3r+poIFaaKgZ4hPjwB2A=
 github.com/cockroachdb/apd/v3 v3.2.4-0.20261022180432-e9c7a71a8579/go.mod h1:klXJcjp+FffLTHlhIG69tezTDvdP065naDsHzKhYSqc=
 github.com/coder/websocket v1.8.15 h1:6B2JPeOGlpff2Uz6vOEH1Vzpi0iUz20A+lPVhPHtNUA=
