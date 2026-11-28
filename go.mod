@@ -3,10 +3,10 @@ module github.com/gdvalle/bbcue
 go 1.26.0
 
 require (
-	cuelang.org/go v0.19.0-0.dev.0.20261126133339-407453d39d80
+	cuelang.org/go v0.19.0-0.dev.0.20261127222705-d53722b2b9cd
 	github.com/rogpeppe/go-internal v1.16.1-0.20261005065351-38c169d642f5
-	github.com/spf13/pflag v1.0.11-0.20261029222656-f8a990678a6d
-	golang.org/x/tools v0.52.1-0.20261104145755-968e7a090852
+	github.com/spf13/pflag v1.1.0
+	golang.org/x/tools v0.53.0
 )
 
 require (
@@ -21,15 +21,15 @@ require (
 	github.com/opencontainers/go-digest v1.0.1-0.20261015205711-63db54280247 // indirect
 	github.com/opencontainers/image-spec v1.1.1 // indirect
 	github.com/pelletier/go-toml/v2 v2.4.3 // indirect
-	github.com/protocolbuffers/txtpbfmt v0.0.0-20261013103202-7c8a61a7a736 // indirect
+	github.com/protocolbuffers/txtpbfmt v0.0.0-20261116065023-f6f26894e769 // indirect
 	github.com/spf13/cobra v1.10.2 // indirect
 	github.com/tetratelabs/wazero v1.12.0 // indirect
 	go.yaml.in/yaml/v3 v3.0.6 // indirect
-	golang.org/x/mod v0.42.0 // indirect
-	golang.org/x/net v0.62.0 // indirect
-	golang.org/x/oauth2 v0.37.0 // indirect
-	golang.org/x/sync v0.24.0 // indirect
-	golang.org/x/sys v0.49.0 // indirect
-	golang.org/x/text v0.43.0 // indirect
+	golang.org/x/mod v0.43.0 // indirect
+	golang.org/x/net v0.63.0 // indirect
+	golang.org/x/oauth2 v0.38.0 // indirect
+	golang.org/x/sync v0.25.0 // indirect
+	golang.org/x/sys v0.50.0 // indirect
+	golang.org/x/text v0.44.0 // indirect
 	google.golang.org/protobuf v1.36.12 // indirect
 )
